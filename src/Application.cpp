@@ -14,6 +14,9 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+// stb_image header for loading window icon (implementation is in ImageLoader.cpp)
+#include "../third_party/stb_image.h"
+
 static void CenteredText(const char* text)
 {
     float availX = ImGui::GetContentRegionAvail().x;
@@ -296,6 +299,41 @@ bool Application::createWindow()
 
     // 显示窗口
     glfwShowWindow(m_window);
+
+    // 设置窗口图标
+    {
+        const char* assets_dir = std::getenv("WUBI_ASSETS_PATH");
+        std::string base_path = assets_dir ? std::string(assets_dir) : "assets";
+        std::string iconFiles[] = {
+            base_path + "/icons/app_32x32.png",
+            base_path + "/icons/app_256x256.png"
+        };
+        GLFWimage icons[2];
+        int iconCount = 0;
+
+        for (int i = 0; i < 2; ++i) {
+            int w, h, channels;
+            unsigned char* pixels = stbi_load(iconFiles[i].c_str(), &w, &h, &channels, 4);
+            if (pixels) {
+                icons[iconCount].width = w;
+                icons[iconCount].height = h;
+                icons[iconCount].pixels = pixels;
+                iconCount++;
+            } else {
+                std::cerr << "警告: 无法加载窗口图标 " << iconFiles[i] << ": "
+                          << stbi_failure_reason() << std::endl;
+            }
+        }
+
+        if (iconCount > 0) {
+            glfwSetWindowIcon(m_window, iconCount, icons);
+        }
+
+        // 释放像素数据
+        for (int i = 0; i < iconCount; ++i) {
+            stbi_image_free(icons[i].pixels);
+        }
+    }
 
     return true;
 }

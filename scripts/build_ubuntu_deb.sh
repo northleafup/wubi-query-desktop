@@ -172,33 +172,19 @@ Name[zh_CN]=帮助
 Exec=$PROJECT_NAME --help
 EOF
 
-# 创建图标文件（如果存在PNG图标，否则创建一个简单的）
-if [ -f "$PROJECT_ROOT/assets/icons/app.png" ]; then
-    cp "$PROJECT_ROOT/assets/icons/app.png" "$DEB_ICON_DIR/$PROJECT_NAME.png"
-else
-    echo "创建默认图标..."
-    # 使用ImageMagick创建一个简单的图标（如果可用）
-    if command -v convert >/dev/null 2>&1; then
-        convert -size 256x256 xc:lightblue \
-                -pointsize 48 -fill darkblue -gravity center \
-                -annotate +0+0 "五笔" \
-                "$DEB_ICON_DIR/$PROJECT_NAME.png" 2>/dev/null || \
-        convert -size 256x256 xc:lightblue \
-                -pointsize 36 -fill darkblue -gravity center \
-                -annotate +0+0 "WUBI" \
-                "$DEB_ICON_DIR/$PROJECT_NAME.png" 2>/dev/null || true
+# 安装多尺寸图标到 hicolor 主题目录
+ICON_SIZES="16 24 32 48 64 128 256"
+echo "安装应用图标..."
+for size in $ICON_SIZES; do
+    ICON_DIR="$DEB_ROOT/usr/share/icons/hicolor/${size}x${size}/apps"
+    mkdir -p "$ICON_DIR"
+    if [ -f "$PROJECT_ROOT/assets/icons/app_${size}x${size}.png" ]; then
+        cp "$PROJECT_ROOT/assets/icons/app_${size}x${size}.png" "$ICON_DIR/$PROJECT_NAME.png"
+        echo "  安装 ${size}x${size} 图标"
     else
-        echo "ImageMagick不可用，创建空白PNG文件..."
-        # 使用base64解码创建一个最小但有效的PNG文件
-        base64_decoded=$(echo "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" | base64 -d 2>/dev/null)
-        if [ "$?" -eq 0 ] && [ -n "$base64_decoded" ]; then
-            echo "$base64_decoded" > "$DEB_ICON_DIR/$PROJECT_NAME.png"
-        else
-            # 备用方案：创建一个最小的PNG二进制文件
-            printf '\x89PNG\x0D\x0A\x1A\x0A\x00\x00\x00\x0DIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1F\x15\xC4\x89\x00\x00\x00\x0AIDATx\x9Cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xDB\x00\x00\x00\x00IEND\xAE\x42\x60\x82' > "$DEB_ICON_DIR/$PROJECT_NAME.png"
-        fi
+        echo "  警告: 缺少 ${size}x${size} 图标文件"
     fi
-fi
+done
 
 # 创建文档
 echo "创建文档..."
