@@ -17,30 +17,6 @@
 // stb_image header for loading window icon (implementation is in ImageLoader.cpp)
 #include "../third_party/stb_image.h"
 
-static void CenteredText(const char* text)
-{
-    float availX = ImGui::GetContentRegionAvail().x;
-    ImVec2 textSize = ImGui::CalcTextSize(text);
-    float padX = (availX - textSize.x) / 2.0f;
-    if (padX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + padX);
-    ImGui::TextUnformatted(text);
-}
-
-static void CenteredTextColored(const ImVec4& color, const char* format, ...)
-{
-    char buf[512];
-    va_list args;
-    va_start(args, format);
-    vsnprintf(buf, sizeof(buf), format, args);
-    va_end(args);
-
-    float availX = ImGui::GetContentRegionAvail().x;
-    ImVec2 textSize = ImGui::CalcTextSize(buf);
-    float padX = (availX - textSize.x) / 2.0f;
-    if (padX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + padX);
-    ImGui::TextColored(color, "%s", buf);
-}
-
 static void CenteredTextVert(const ImVec4& color, const char* text, float rowHeight)
 {
     float availX = ImGui::GetContentRegionAvail().x;

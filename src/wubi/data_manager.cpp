@@ -68,7 +68,7 @@ bool DataManager::initialize() {
     }
 
     // 过滤数据，只保留有图片的汉字
-    size_t filtered_count = parser_->filterDataWithImages(available_images_);
+    (void)parser_->filterDataWithImages(available_images_);
 
     // 更新保留汉字数据的图片信息
     auto& all_chars = parser_->getAllCharData();
