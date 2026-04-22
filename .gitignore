@@ -1,0 +1,138 @@
+# 构建输出
+build/
+bin/
+lib/
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# 字体文件（通过脚本下载）
+fonts/*.ttc
+fonts/*.ttf
+fonts/*.otf
+!fonts/README.md
+!fonts/font.conf
+
+# IDE文件
+.vscode/
+*.vcxproj*
+*.sln
+*.user
+*.suo
+
+# JetBrains IDE文件
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Vim/Vi 编辑器临时文件
+*.swp
+*.swo
+*.swn
+*~
+*.netrwhist
+
+# Emacs 编辑器临时文件
+*.~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# 临时文件
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# 备份文件
+*.bak
+*.backup
+*.orig
+
+# CMake生成文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CPackConfig.cmake
+CPackSourceConfig.cmake
+install_manifest.txt
+
+# 编译器输出
+*.dSYM/
+
+# 运行时复制的大文件（由构建脚本复制，不需要版本控制）
+build/bin/assets/
+build/fonts/
+
+# 大型资源文件变化提示（但保留源文件）
+assets/images/char/*.gif
+assets/data/*.tsv
+
+# 但保留目录结构
+!assets/images/char/.gitkeep
+!assets/data/.gitkeep
+
+# ImGui 配置文件
+config/imgui.ini
+imgui.ini
+
+# 运行时生成的文件
+*.pid
+*.lock
+
+# 系统生成的日志文件
+*.log
+*.out
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 安装包
+releases/
+release/
+*.dmg
+*.pkg
+*.app
+*.deb
+
+# 临时安装包文件
+temp_wubi.dmg
+
+# Python 相关（如果需要）
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS 特定文件
+.AppleDouble
+.LSOverride
+Icon?
+
+# 备份和临时文件
+*.old
+*.temp
+*.swp
+*.swo
+*~
+
+# 第三方库的临时文件
+third_party/stb_image.h.backup
