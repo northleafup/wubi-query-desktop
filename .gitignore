@@ -116,6 +116,8 @@ release/
 
 # 临时安装包文件
 temp_wubi.dmg
+deb_build/
+pkg_build/
 
 # Python 相关（如果需要）
 __pycache__/
