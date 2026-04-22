@@ -119,6 +119,17 @@ ubuntu_package() {
     chmod +x "$DEB_BIN_DIR/$PROJECT_NAME"
     cp -r "$PROJECT_ROOT/assets" "$DEB_SHARE_DIR/"
     
+    # 安装多尺寸图标到 hicolor 主题目录
+    local ICON_SIZES="16 24 32 48 64 128 256"
+    log_info "安装应用图标..."
+    for size in $ICON_SIZES; do
+        local ICON_DIR="$DEB_ROOT/usr/share/icons/hicolor/${size}x${size}/apps"
+        mkdir -p "$ICON_DIR"
+        if [ -f "$PROJECT_ROOT/assets/icons/app_${size}x${size}.png" ]; then
+            cp "$PROJECT_ROOT/assets/icons/app_${size}x${size}.png" "$ICON_DIR/$PROJECT_NAME.png"
+        fi
+    done
+    
     # 生成桌面文件
     cat > "$DEB_DESKTOP_DIR/$PROJECT_NAME.desktop" << EOF
 [Desktop Entry]
