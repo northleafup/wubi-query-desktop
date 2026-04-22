@@ -142,35 +142,34 @@ fi
 
 # 创建桌面文件
 echo "创建桌面文件..."
-cat > "$DEB_DESKTOP_DIR/$PROJECT_NAME.desktop" << EOF
-[Desktop Entry]
-Name=Wubi Query Desktop
-Name[zh_CN]=五笔编码查询
-GenericName=Wubi Input Method Query Tool
-GenericName[zh_CN]=五笔输入法编码查询工具
-Comment=A desktop application for querying Wubi input method codes
-Comment[zh_CN]=五笔输入法编码查询桌面应用程序
-Exec=env WUBI_ASSETS_PATH=/usr/share/wubi-query-desktop/assets $PROJECT_NAME
-Icon=$PROJECT_NAME
-Terminal=false
-Type=Application
-Categories=Utility;Education;Office;Development;
-Keywords=Wubi;Input;Method;Chinese;Query;五笔;编码;字典;
-StartupNotify=true
-DBusActivatable=true
-Actions=Preferences;Help;
-MimeType=text/plain;text/x-wubi;
-
-[Desktop Action Preferences]
-Name=Preferences
-Name[zh_CN]=偏好设置
-Exec=$PROJECT_NAME --preferences
-
-[Desktop Action Help]
-Name=Help
-Name[zh_CN]=帮助
-Exec=$PROJECT_NAME --help
-EOF
+# 使用 printf 确保生成纯 UTF-8 内容，无 BOM
+{
+  printf '[Desktop Entry]\n'
+  printf 'Encoding=UTF-8\n'
+  printf 'Name=五笔编码查询\n'
+  printf 'GenericName=Wubi Input Method Query Tool\n'
+  printf 'GenericName[zh_CN]=五笔输入法编码查询工具\n'
+  printf 'Comment=A desktop application for querying Wubi input method codes\n'
+  printf 'Comment[zh_CN]=五笔输入法编码查询桌面应用程序\n'
+  printf 'Exec=env WUBI_ASSETS_PATH=/usr/share/wubi-query-desktop/assets %s\n' "$PROJECT_NAME"
+  printf 'Icon=%s\n' "$PROJECT_NAME"
+  printf 'Terminal=false\n'
+  printf 'Type=Application\n'
+  printf 'Categories=Utility;Education;Office;Development;\n'
+  printf 'Keywords=Wubi;Input;Method;Chinese;Query;五笔;编码;字典;\n'
+  printf 'StartupNotify=true\n'
+  printf 'StartupWMClass=%s\n' "$PROJECT_NAME"
+  printf '\n'
+  printf '[Desktop Action Preferences]\n'
+  printf 'Name=Preferences\n'
+  printf 'Name[zh_CN]=偏好设置\n'
+  printf 'Exec=%s --preferences\n' "$PROJECT_NAME"
+  printf '\n'
+  printf '[Desktop Action Help]\n'
+  printf 'Name=Help\n'
+  printf 'Name[zh_CN]=帮助\n'
+  printf 'Exec=%s --help\n' "$PROJECT_NAME"
+} > "$DEB_DESKTOP_DIR/$PROJECT_NAME.desktop"
 
 # 安装多尺寸图标到 hicolor 主题目录
 ICON_SIZES="16 24 32 48 64 128 256"

@@ -274,6 +274,13 @@ bool Application::initializeGLFW()
 
 bool Application::createWindow()
 {
+    // 设置窗口类名 (WM_CLASS) 和 App ID，以便桌面环境识别并关联 .desktop 文件
+    glfwWindowHintString(GLFW_X11_CLASS_NAME, "wubi-query-desktop");
+    glfwWindowHintString(GLFW_X11_INSTANCE_NAME, "wubi-query-desktop");
+#ifdef GLFW_WAYLAND_APP_ID
+    glfwWindowHintString(GLFW_WAYLAND_APP_ID, "wubi-query-desktop");
+#endif
+
     // 创建窗口
     m_window = glfwCreateWindow(m_windowWidth, m_windowHeight,
                                m_applicationName.c_str(), nullptr, nullptr);
