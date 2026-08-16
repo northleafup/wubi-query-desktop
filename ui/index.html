@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>五笔编码查询</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <h1 class="app-title">五笔编码查询</h1>
+        <span class="separator">|</span>
+        <span class="char-count" id="charCount">加载中...</span>
+      </div>
+      <div class="top-bar-right">
+        <span class="hint">ESC 退出</span>
+      </div>
+    </header>
+
+    <div class="search-card">
+      <label class="search-label">输入汉字查询五笔编码</label>
+      <div class="search-row">
+        <input type="text" id="searchInput" class="search-input" placeholder="例如：五 北京" autofocus>
+        <button id="searchBtn" class="search-btn">查询</button>
+      </div>
+      <div class="search-hint">支持输入单个或多个汉字，如 "五"、"北京" 等</div>
+    </div>
+
+    <div class="results-section" id="resultsSection" style="display: none;">
+      <div class="results-header" id="resultsHeader"></div>
+      <div class="table-wrapper">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th class="col-index">序号</th>
+              <th class="col-char">汉字</th>
+              <th class="col-info">基本信息</th>
+              <th class="col-code">五笔全码</th>
+              <th class="col-simple">简码/容错码</th>
+              <th class="col-image">字根拆解</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
