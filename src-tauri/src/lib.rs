@@ -9,7 +9,9 @@ struct AppState {
 
 #[tauri::command]
 fn query_chars(input: String, state: State<AppState>) -> Vec<CharInfo> {
-    state.store.query(&input)
+    let results = state.store.query(&input);
+    eprintln!("query '{}' -> {} results", input, results.len());
+    results
 }
 
 #[tauri::command]
@@ -23,9 +25,18 @@ fn get_image_base64(character: String, state: State<AppState>) -> Option<String>
     if !info.has_image || info.image_path.is_empty() {
         return None;
     }
-
-    let bytes = std::fs::read(&info.image_path).ok()?;
-    Some(format!("data:image/gif;base64,{}", base64_encode(&bytes)))
+    eprintln!("get_image_base64: character={}, path={}", character, info.image_path);
+    let bytes = std::fs::read(&info.image_path).ok();
+    match bytes {
+        Some(b) => {
+            eprintln!("read {} bytes", b.len());
+            Some(format!("data:image/gif;base64,{}", base64_encode(&b)))
+        }
+        None => {
+            eprintln!("failed to read file");
+            None
+        }
+    }
 }
 
 fn base64_encode(data: &[u8]) -> String {
