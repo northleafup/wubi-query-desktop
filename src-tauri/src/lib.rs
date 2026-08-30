@@ -73,7 +73,7 @@ pub fn run() {
                     .unwrap()
                     .parent()
                     .unwrap()
-                    .join("assets")
+                    .join("resources")
             } else {
                 let resource_dir = app.path().resource_dir().unwrap();
                 resource_dir.join("..")

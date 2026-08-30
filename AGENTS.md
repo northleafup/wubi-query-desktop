@@ -27,16 +27,18 @@ src-tauri/                  # Rust 后端
   Cargo.toml                # Rust 依赖配置
   tauri.conf.json           # Tauri 窗口/打包/安全配置
   capabilities/             # 权限配置
-  icons/                    # 应用图标
+  icons/                    # 应用图标（Tauri 生成，含 icns/ico）
 ui/                         # 前端（纯 HTML/CSS/JS）
   index.html                # 主页面
   style.css                 # 样式
   app.js                    # 查询逻辑
-assets/
+resources/                  # 运行时资源
   data/                     # TSV 数据文件（被 gitignore）
     data-wubi-v86.tsv       # 五笔编码数据
     data-chars.tsv          # 汉字基本信息
   images/char/              # 6764 张字根 GIF（被 gitignore）
+docs/                       # 开发文档
+  ISSUES.md                 # 问题记录
 ```
 
 ## 数据说明

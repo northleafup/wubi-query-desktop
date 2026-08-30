@@ -38,8 +38,8 @@
       "icons/icon.ico"
     ],
     "resources": [
-      "../assets/data/*.tsv",
-      "../assets/images/char/*.gif"
+      "../resources/data/*.tsv",
+      "../resources/images/char/*.gif"
     ],
     "android": {
       "debugApplicationIdSuffix": ".debug"

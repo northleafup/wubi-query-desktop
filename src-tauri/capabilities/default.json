@@ -12,11 +12,11 @@
     {
       "identifier": "fs:scope",
       "allow": [
-        { "path": "$RESOURCE/assets/images/char/*.gif" },
-        { "path": "$RESOURCE/../assets/images/char/*.gif" },
-        { "path": "$RESOURCE/../assets/data/*.tsv" },
-        { "path": "assets/images/char/*.gif" },
-        { "path": "assets/data/*.tsv" }
+        { "path": "$RESOURCE/resources/images/char/*.gif" },
+        { "path": "$RESOURCE/../resources/images/char/*.gif" },
+        { "path": "$RESOURCE/../resources/data/*.tsv" },
+        { "path": "resources/images/char/*.gif" },
+        { "path": "resources/data/*.tsv" }
       ]
     },
     "fs:default"

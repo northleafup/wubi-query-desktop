@@ -35,10 +35,10 @@ release/
 *.exe
 
 # 大型资源文件（保留目录结构，不提交文件）
-assets/images/char/*.gif
-assets/data/*.tsv
-!assets/images/char/.gitkeep
-!assets/data/.gitkeep
+resources/images/char/*.gif
+resources/data/*.tsv
+!resources/images/char/.gitkeep
+!resources/data/.gitkeep
 
 # 备份文件
 *.bak
