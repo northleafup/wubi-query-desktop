@@ -27,9 +27,9 @@ Thumbs.db
 
 # 构建产物
 release/
+src-tauri/target/release/bundle/macos/*.app
 *.dmg
 *.pkg
-*.app
 *.deb
 *.msi
 *.exe
