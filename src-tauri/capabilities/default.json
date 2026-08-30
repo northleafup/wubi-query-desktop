@@ -19,6 +19,7 @@
         { "path": "resources/data/*.tsv" }
       ]
     },
-    "fs:default"
+    "fs:default",
+    "global-shortcut:default"
   ]
 }

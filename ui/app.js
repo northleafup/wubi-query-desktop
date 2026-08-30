@@ -137,3 +137,11 @@ searchInput.addEventListener("keydown", function (e) {
 
 log("app.js loaded");
 init();
+
+// 监听全局快捷键事件，聚焦输入框
+window.__TAURI__.event.listen("focus-search", function () {
+  if (searchInput) {
+    searchInput.focus();
+    log("focus-search event: input focused");
+  }
+});

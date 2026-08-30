@@ -1,7 +1,8 @@
 mod data;
 
 use data::{CharInfo, DataStore};
-use tauri::{Manager, State};
+use tauri::{Emitter, Manager, State};
+use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut};
 
 struct AppState {
     store: DataStore,
@@ -67,6 +68,7 @@ fn base64_encode(data: &[u8]) -> String {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .setup(|app| {
             let assets_dir = if cfg!(debug_assertions) {
                 std::env::current_dir()
@@ -91,6 +93,17 @@ pub fn run() {
                         .build(),
                 )?;
             }
+
+            // 注册全局快捷键 CmdOrControl+K
+            let shortcut = Shortcut::new(Some(Modifiers::SUPER), Code::KeyK);
+            let _ = app.handle().global_shortcut().on_shortcut(shortcut, |app, _shortcut, _event| {
+                if let Some(window) = app.get_webview_window("main") {
+                    window.show().unwrap();
+                    window.set_focus().unwrap();
+                    window.emit("focus-search", ()).unwrap();
+                }
+            });
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![query_chars, get_char_count, get_image_base64])
