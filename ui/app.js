@@ -39,10 +39,6 @@ var resultsBody = document.getElementById("resultsBody");
 var emptyState = document.getElementById("emptyState");
 var charCount = document.getElementById("charCount");
 
-function log(msg) {
-  console.log("[APP] " + msg);
-}
-
 function init() {
   log("init called");
   invoke("get_char_count").then(function (count) {
@@ -96,7 +92,8 @@ function renderResults(results) {
     var strokes = item.strokes || "-";
     var simpleCodes = item.simple_codes && item.simple_codes.length > 0 ? item.simple_codes.join(", ") : "-";
 
-    var imgHtml = '<span class="info-cell">图片待加载</span>';
+    var imgId = "img-" + index;
+    var imgHtml = '<img id="' + imgId + '" style="max-width:80px;max-height:80px;" />';
 
     tr.innerHTML =
       '<td class="index-cell">' + (index + 1) + '</td>' +
@@ -107,6 +104,20 @@ function renderResults(results) {
       '<td class="image-cell">' + imgHtml + '</td>';
 
     resultsBody.appendChild(tr);
+
+    invoke("get_image_base64", { character: item.character }).then(function (dataUrl) {
+      var imgEl = document.getElementById(imgId);
+      if (imgEl && dataUrl) {
+        imgEl.src = dataUrl;
+      } else if (imgEl) {
+        imgEl.outerHTML = '<span>无图片</span>';
+      }
+    }).catch(function (e) {
+      var imgEl = document.getElementById(imgId);
+      if (imgEl) {
+        imgEl.outerHTML = '<span>加载失败</span>';
+      }
+    });
   });
 
   log("rendered " + results.length + " rows");
