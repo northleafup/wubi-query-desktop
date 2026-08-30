@@ -39,6 +39,7 @@ resources/                  # 运行时资源
   images/char/              # 6764 张字根 GIF（被 gitignore）
 docs/                       # 开发文档
   ISSUES.md                 # 问题记录
+  BUILD.md                  # 构建指南
 ```
 
 ## 数据说明
