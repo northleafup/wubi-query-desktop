@@ -76,7 +76,7 @@ pub fn run() {
                     .join("resources")
             } else {
                 let resource_dir = app.path().resource_dir().unwrap();
-                resource_dir.join("..")
+                resource_dir.join("resources")
             };
 
             let store = DataStore::new(&assets_dir).expect("数据加载失败");
